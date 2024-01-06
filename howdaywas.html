@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Rate Your Day</title>
+	<link rel="icon" type="image/x-icon" href="smile.ico">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        #rating-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: WHITE;
+        }
+
+        .emoji {
+            font-size: 2em;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .emoji:hover {
+            transform: scale(1.2);
+        }
+
+        #selected-rating {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        #submit-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        #submit-button:hover {
+            background-color: #45a049;
+        }
+		
+		
+		
+		<!-- OLD STUFF -->
+		
+		* {
+		  box-sizing: border-box;
+		}
+
+		/* Style the body */
+		body {
+		  font-family: Arial, Helvetica, sans-serif;
+		  margin: 0;
+		}
+
+		/* Header/logo Title */
+		.header {
+		  padding: 80px;
+		  text-align: center;
+		  background: #1abc9c;
+		  color: white;
+		}
+
+		/* Increase the font size of the heading */
+		.header h1 {
+		  font-size: 40px;
+		}
+
+		body {font-family: Arial, Helvetica, sans-serif;}
+
+		.navbar {
+		  width: 100%;
+		  background-color: #555;
+		  overflow: auto;
+		}
+
+		.navbar a {
+		  float: left;
+		  padding: 12px;
+		  color: white;
+		  text-decoration: none;
+		  font-size: 17px;
+		}
+
+		.navbar a:hover {
+		  background-color: #000;
+		}
+
+		.active {
+		  background-color: #04AA6D;
+		}
+
+		@media screen and (max-width: 500px) {
+		  .navbar a {
+			float: none;
+			display: block;
+		  }
+		}
+
+		/* Column container */
+		.row {  
+		  display: -ms-flexbox; /* IE10 */
+		  display: flex;
+		  -ms-flex-wrap: wrap; /* IE10 */
+		  flex-wrap: wrap;
+		}
+
+		/* Create two unequal columns that sits next to each other */
+		/* Sidebar/left column */
+		.side {
+		  -ms-flex: 30%; /* IE10 */
+		  flex: 30%;
+		  background-color: #f1f1f1;
+		  padding: 20px;
+		}
+
+		/* Main column */
+		.main {   
+		  -ms-flex: 70%; /* IE10 */
+		  flex: 70%;
+		  background-color: white;
+		  padding: 20px;
+		}
+
+		/* Fake image, just for this example */
+		.fakeimg {
+		  background-color: #aaa;
+		  width: 100%;
+		  padding: 20px;
+		}
+
+		/* Footer */
+		.footer {
+		  padding: 20px;
+		  text-align: center;
+		  background: #ddd;
+		}
+		
+		/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+		@media screen and (max-width: 700px) {
+		  .row {   
+			flex-direction: column;
+		  }
+		}
+
+		/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+		@media screen and (max-width: 400px) {
+		  .navbar a {
+			float: none;
+			width: 100%;
+		  }
+	}
+    </style>
+</head>
+<body>
+
+
+<div class="header">
+  <h1>How was your day?</h1>
+  <p> <b> Please select the face which most accurately describes your mood today </b> </p>
+</div>
+
+<div class="navbar">
+  <a class="active" href="page1.html"><i class="fa fa-fw fa-home"></i> Home</a> 
+  <a href="page3.html"><i class="fa fa-fw fa-search"></i> Search</a> 
+  <a href="page2.html"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
+  <a href="page3.html"><i class="fa fa-fw fa-user"></i> Login</a>
+  <a href="map.html"><i class="fa fa-plane"></i> Trips</a>
+  <a href="page4.html"><i class="fa fa-cc-visa"></i> Shop</a>
+  <a href="howdaywas.html"><i class="fa fa-smile-o"></i> Feels</a>
+</div>
+
+<div id="rating-container">
+    <h2>How was your day?</h2>
+
+    <div class="emoji" onclick="selectRating('😁')">😁</div>
+    <div class="emoji" onclick="selectRating('😊')">😊</div>
+    <div class="emoji" onclick="selectRating('😐')">😐</div>
+    <div class="emoji" onclick="selectRating('😕')">😕</div>
+    <div class="emoji" onclick="selectRating('😞')">😞</div>
+
+    <div id="selected-rating"></div>
+
+    <button id="submit-button" onclick="submitRating()">Submit</button>
+</div>
+
+<script>
+
+    let selectedRating = '';
+
+    function selectRating(emoji) {
+        selectedRating = emoji;
+        document.getElementById('selected-rating').innerText = `You selected: ${emoji}`;
+    }
+
+    function submitRating() {
+		
+		if (selectedRating == '😁') {
+			alert(`I'm happy to hear you're feeling GREAT today! Keep it up 😊`);
+        }
+		
+		else if (selectedRating == '😊') {
+		alert(`I'm happy to hear you're feeling GOOD today! Keep it up 😊`);
+		}
+
+		else if (selectedRating == '😐') {
+		alert(`If you are feeling MEH do something you love like music or walks 😊`);
+		}
+
+		else if (selectedRating == '😕') 
+		{
+			async function getRandomQuote() 
+			{
+			const apiUrl = 'https://api.quotable.io/random';
+
+				try 
+				{
+					const response = await fetch(apiUrl);
+					const data = await response.json();
+					const quoteText = data.content;
+					alert(`Sorry to hear you are feeling bad\nHere is an inspirational Quote to make your day better:\n\n"${quoteText}"`);
+				} 
+				
+				catch (error) 
+				{
+					console.error('Error fetching quote:', error);
+				}
+			}
+			getRandomQuote(); // Initial load
+		}
+		
+		
+		
+		else if (selectedRating == '😞') 
+		{
+			async function getRandomQuote() 
+			{
+			const apiUrl = 'https://api.quotable.io/random';
+
+				try 
+				{
+					const response = await fetch(apiUrl);
+					const data = await response.json();
+					const quoteText = data.content;
+					alert(`Sorry to hear you are feeling so bad\nHere is an inspirational Quote to make your day better:\n\n"${quoteText}"`);
+				} 
+				
+				catch (error) 
+				{
+					console.error('Error fetching quote:', error);
+				}
+			}
+			getRandomQuote(); // Initial load
+		}		
+		
+		else {
+            alert('Please select a rating before submitting.');
+        }
+    }
+</script>
+
+</body>
+</html>
